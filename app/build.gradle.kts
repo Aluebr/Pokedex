@@ -1,6 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.devtools.ksp")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -40,7 +42,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.3"
+        kotlinCompilerExtensionVersion = "1.5.4"
     }
     packaging {
         resources {
@@ -57,6 +59,10 @@ android {
 }
 
 dependencies {
+    val hiltVersion = "2.49"
+    ksp("com.google.dagger:hilt-compiler:$hiltVersion")
+    implementation("com.google.dagger:hilt-android:$hiltVersion")
+    implementation ("androidx.hilt:hilt-navigation-compose:1.1.0")
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.google.accompanist:accompanist-systemuicontroller:0.33.2-alpha")
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")

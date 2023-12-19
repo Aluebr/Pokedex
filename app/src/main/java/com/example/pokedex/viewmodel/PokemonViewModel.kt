@@ -11,10 +11,13 @@ import com.example.pokedex.data.repository.PokedexRetrofit
 import com.example.pokedex.data.model.Pokemon
 import com.example.pokedex.data.repository.PokemonRetrofit
 import com.example.pokedex.view.ColorTypes
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class PokemonViewModel(application: Application) : AndroidViewModel(application){
+@HiltViewModel
+class PokemonViewModel @Inject constructor(application: Application) : AndroidViewModel(application){
     private val _pokedex = MutableLiveData<List<PokemonEntry>>()
     val pokedex: LiveData<List<PokemonEntry>> = _pokedex
     private val _pokemon = MutableLiveData<Pokemon>()
@@ -24,7 +27,6 @@ class PokemonViewModel(application: Application) : AndroidViewModel(application)
     private val pokemonDetailsMap = mutableMapOf<String, LiveData<Pokemon>>()
     init {
         getPokedex()
-
     }
 
     fun getPokemonByName(name: String) {

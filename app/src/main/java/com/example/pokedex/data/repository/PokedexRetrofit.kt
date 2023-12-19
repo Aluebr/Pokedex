@@ -8,19 +8,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 class PokedexRetrofit {
-    private val apiService: PokedexApiService = RetrofitPokedexClient.instance.create(
+    private val apiService: PokedexApiService = RetrofitPokedexClient.provideRetrofit().create(
         PokedexApiService::class.java)
 
-    object RetrofitPokedexClient {
-        private const val BASE_URL = "https://pokeapi.co/api/v2/"
 
-        val instance: Retrofit by lazy {
-            Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-        }
-    }
     fun getPokemonList(): List<PokemonEntry> {
         val call = apiService.getPokedex()
         val response = call.execute() // Sincrónico, no recomendado para la UI thread

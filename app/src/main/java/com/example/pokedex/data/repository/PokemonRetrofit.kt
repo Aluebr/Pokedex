@@ -8,14 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 class PokemonRetrofit(aplication:Application) : PokemonRepository {
-    object RetrofitPokemonClient {
-        private val retrofit = Retrofit.Builder()
-            .baseUrl("https://pokeapi.co/api/v2/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
 
-        val service: PokemonApiService = retrofit.create(PokemonApiService::class.java)
-    }
     override fun getPokemonByName(name: String): Pokemon {
         val call = RetrofitPokemonClient.service.getPokemonByName(name)
 

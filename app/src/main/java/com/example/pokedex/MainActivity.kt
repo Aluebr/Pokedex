@@ -1,5 +1,6 @@
 package com.example.pokedex
-
+import androidx.hilt.navigation.compose.hiltViewModel
+import android.app.Application
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -17,43 +18,61 @@ import com.example.pokedex.ui.theme.PokedexTheme
 import com.example.pokedex.view.PokedexView
 import com.example.pokedex.view.PokemonDetailView
 import com.example.pokedex.viewmodel.PokemonViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.HiltAndroidApp
 
-class MainActivity : ComponentActivity() {
+@HiltAndroidApp
+class PokedexApp : Application() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            PokedexTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Column(
+    @AndroidEntryPoint
+    class MainActivity : ComponentActivity() {
+
+        override fun onCreate(savedInstanceState: Bundle?) {
+            super.onCreate(savedInstanceState)
+            setContent {
+                PokedexTheme {
+                    // A surface container using the 'background' color from the theme
+                    Surface(
                         modifier = Modifier.fillMaxSize(),
-                        horizontalAlignment = Alignment.CenterHorizontally
+                        color = MaterialTheme.colorScheme.background
                     ) {
-                        val pokemonViewModel: PokemonViewModel by viewModels()
-                        val navController = rememberNavController()
+                        Column(
+                            modifier = Modifier.fillMaxSize(),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            val pokemonViewModel: PokemonViewModel = hiltViewModel()
+                            val navController = rememberNavController()
 
-                        NavHost(navController = navController, startDestination = "pokedexView") {
-                            composable("pokedexView") {
-                                PokedexView(pokemonViewModel,navController) // Pasar navController si es necesario
+                            NavHost(
+                                navController = navController,
+                                startDestination = "pokedexView"
+                            ) {
+                                composable("pokedexView") {
+                                    PokedexView(
+                                        pokemonViewModel,
+                                        navController
+                                    ) // Pasar navController si es necesario
+                                }
+                                composable("PokemonDetailView/{pokemonName}") { backStackEntry ->
+                                    val pokemonName =
+                                        backStackEntry.arguments?.getString("pokemonName")
+                                    PokemonDetailView(
+                                        pokemonViewModel,
+                                        pokemonName!!,
+                                        navController
+                                    )
+                                }
                             }
-                            composable("PokemonDetailView/{pokemonName}") { backStackEntry ->
-                                val pokemonName = backStackEntry.arguments?.getString("pokemonName")
-                                PokemonDetailView(pokemonViewModel, pokemonName!!, navController)
-                            }
+
                         }
 
                     }
-
                 }
             }
         }
     }
-}
 
+}
 
 
 

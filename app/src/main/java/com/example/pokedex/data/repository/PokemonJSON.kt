@@ -52,8 +52,9 @@ class PokemonJSON(val application: Application) : PokemonRepository {
         return Pokemon(id, name, imageURL, statMap, types, weight, height)
     }
 
-
     override fun getPokemonById(id: String): Pokemon {
         TODO("Not yet implemented")
     }
+
+
 }

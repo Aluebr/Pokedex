@@ -39,7 +39,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.example.pokedex.data.model.Pokemon
 import com.example.pokedex.ui.theme.DarkGrey
@@ -54,7 +53,7 @@ import com.example.pokedex.viewmodel.PokemonViewModel
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
-fun PokemonDetailView(viewModel: PokemonViewModel, name:String,navController: NavController) {
+fun PokemonDetailView(viewModel: PokemonViewModel, name: String, navController: NavController) {
 
     viewModel.getPokemonByName(name)
     val pokemon by viewModel.pokemon.observeAsState()
@@ -67,7 +66,7 @@ fun PokemonDetailView(viewModel: PokemonViewModel, name:String,navController: Na
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         systemUiController.setStatusBarColor(statusBarColor)
-        TopBar(id = "#${pokemon?.id}", viewModel, pokemon)
+        TopBar(id = "#${pokemon?.id}", viewModel, pokemon) { navController.popBackStack() }
 
         Box(
             modifier = Modifier
@@ -196,6 +195,7 @@ fun PokemonDetailView(viewModel: PokemonViewModel, name:String,navController: Na
     }
 
 }
+
 @Composable
 fun RoundedStatBar(value: Int, color: Color, stat: String) {
     val maxStatValue = 300
@@ -251,12 +251,18 @@ fun RoundedStatBar(value: Int, color: Color, stat: String) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopBar(id: String, viewModel: PokemonViewModel, pokemon: Pokemon?) {
-    //val pokemon by viewModel.pokemon.observeAsState()
-    //viewModel.getPokemonByName(POKEMON_NAME)
-    TopAppBar(colors = TopAppBarDefaults.smallTopAppBarColors(containerColor= viewModel.getColorForType(
-        pokemon?.types?.get(0) ?:  ""
-    ) ),
+fun TopBar(
+    id: String,
+    viewModel: PokemonViewModel,
+    pokemon: Pokemon?,
+    onBackClicked: () -> Boolean
+) {
+
+    TopAppBar(colors = TopAppBarDefaults.smallTopAppBarColors(
+        containerColor = viewModel.getColorForType(
+            pokemon?.types?.get(0) ?: ""
+        )
+    ),
         title = {
             Text(
                 text = "Pokedex",
@@ -267,7 +273,7 @@ fun TopBar(id: String, viewModel: PokemonViewModel, pokemon: Pokemon?) {
         navigationIcon = {
             IconButton(
                 onClick = {
-                    /*TODO*/
+                    onBackClicked()
                 }
             ) {
                 Icon(
