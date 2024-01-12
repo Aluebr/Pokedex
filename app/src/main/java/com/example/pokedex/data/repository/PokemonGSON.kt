@@ -1,13 +1,13 @@
 package com.example.pokedex.data.repository
 
 import android.app.Application
-import com.example.pokedex.data.model.Pokemon
-import com.example.pokedex.data.model.PokemonSerialized
+import com.example.pokedex.domain.models.Pokemon
+import com.example.pokedex.domain.models.PokemonSerialized
 import com.google.gson.Gson
 import java.io.InputStreamReader
 
 class PokemonGSON(val application: Application) : PokemonRepository {
-    override fun getPokemonByName(name: String): Pokemon {
+    override fun getPokemonByID(name: String): Pokemon {
 
         val context = application.applicationContext
         val inputStream = context.assets.open("$name.json")
@@ -39,9 +39,6 @@ class PokemonGSON(val application: Application) : PokemonRepository {
 
     }
 
-    override fun getPokemonById(id: String): Pokemon {
-        TODO("Not yet implemented")
-    }
 
 
 }

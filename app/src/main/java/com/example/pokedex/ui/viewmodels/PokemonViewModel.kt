@@ -1,6 +1,6 @@
-package com.example.pokedex.viewmodel
+package com.example.pokedex.ui.viewmodels
 
-import PokemonEntry
+import com.example.pokedex.domain.models.PokemonEntry
 import android.app.Application
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.AndroidViewModel
@@ -8,10 +8,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.pokedex.data.repository.PokedexRetrofit
-import com.example.pokedex.data.model.Pokemon
-import com.example.pokedex.data.repository.PokemonRepository
+import com.example.pokedex.domain.models.Pokemon
 import com.example.pokedex.data.repository.PokemonRetrofit
-import com.example.pokedex.view.ColorTypes
+import com.example.pokedex.domain.models.ColorTypes
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -24,7 +23,7 @@ class PokemonViewModel @Inject constructor(application: Application) : AndroidVi
     private val _pokemon = MutableLiveData<Pokemon>()
     var pokemon: LiveData<Pokemon> = _pokemon
     val pokedexApi = PokedexRetrofit()
-    val pokemonApi = PokemonRetrofit(application)
+    val pokemonApi = PokemonRetrofit()
     private val pokemonDetailsMap = mutableMapOf<String, LiveData<Pokemon>>()
     init {
         getPokedex()
@@ -33,7 +32,7 @@ class PokemonViewModel @Inject constructor(application: Application) : AndroidVi
     fun getPokemonByName(name: String) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val pokemonData = pokemonApi.getPokemonByName(name)
+                val pokemonData = pokemonApi.getPokemonByID(name)
                 _pokemon.postValue(pokemonData)
             } catch (e: Exception) {
                 _pokemon.postValue(null)
@@ -59,7 +58,7 @@ class PokemonViewModel @Inject constructor(application: Application) : AndroidVi
             MutableLiveData<Pokemon>().also { liveData ->
                 viewModelScope.launch(Dispatchers.IO) {
                     try {
-                        val details = pokemonApi.getPokemonByName(name)
+                        val details = pokemonApi.getPokemonByID(name)
                         liveData.postValue(details)
                     } catch (e: Exception) {
                         liveData.postValue(null)

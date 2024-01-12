@@ -2,11 +2,11 @@
 package com.example.pokedex.data.repository
 
 import android.app.Application
-import com.example.pokedex.data.model.Pokemon
+import com.example.pokedex.domain.models.Pokemon
 import org.json.JSONObject
 
 class PokemonJSON(val application: Application) : PokemonRepository {
-    override fun getPokemonByName(name: String): Pokemon {
+    override fun getPokemonByID(name: String): Pokemon {
         val context = application.applicationContext
         val jsonString = context.assets.open("$name.json")
             .bufferedReader()
@@ -50,10 +50,6 @@ class PokemonJSON(val application: Application) : PokemonRepository {
             types.add(typesJSON.getJSONObject(i).getJSONObject("type").getString("name"))
         }
         return Pokemon(id, name, imageURL, statMap, types, weight, height)
-    }
-
-    override fun getPokemonById(id: String): Pokemon {
-        TODO("Not yet implemented")
     }
 
 

@@ -1,6 +1,6 @@
 package com.example.pokedex.data
 
-import com.example.pokedex.data.model.PokemonSerialized
+import com.example.pokedex.domain.models.PokemonSerialized
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

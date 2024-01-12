@@ -1,10 +1,7 @@
 package com.example.pokedex.data.repository
 
-import PokemonEntry
+import com.example.pokedex.domain.models.PokemonEntry
 import com.example.pokedex.data.PokedexApiService
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-
 
 
 class PokedexRetrofit {

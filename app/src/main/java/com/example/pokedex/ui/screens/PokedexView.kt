@@ -1,6 +1,6 @@
-package com.example.pokedex.view
+package com.example.pokedex.ui.screens
 
-import PokemonEntry
+import com.example.pokedex.domain.models.PokemonEntry
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -12,7 +12,6 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
@@ -29,7 +28,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
 import com.example.pokedex.R
-import com.example.pokedex.viewmodel.PokemonViewModel
+import com.example.pokedex.ui.viewmodels.PokemonViewModel
 
 
 @Composable
@@ -43,7 +42,7 @@ val scrollState = rememberLazyGridState()
             columns = GridCells.Fixed(3),
             contentPadding = PaddingValues(8.dp)
         ) {
-            items(pokedex, key = { it.entryNumber }) { pokemonEntry ->  // Asumiendo que `id` es un identificador único
+            items(pokedex, key = { it.entryNumber }) { pokemonEntry ->
                 PokemonCard(pokemonEntry, viewModel, navController)
             }
         }
