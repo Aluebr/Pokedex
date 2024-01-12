@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.pokedex.data.repository.PokedexRetrofit
 import com.example.pokedex.data.model.Pokemon
+import com.example.pokedex.data.repository.PokemonRepository
 import com.example.pokedex.data.repository.PokemonRetrofit
 import com.example.pokedex.view.ColorTypes
 import dagger.hilt.android.lifecycle.HiltViewModel

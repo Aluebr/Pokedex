@@ -58,7 +58,7 @@ fun PokemonCard(
     viewModel: PokemonViewModel,
     navController: NavHostController
 ) {
-    val pokemonDetails by viewModel.getPokemonDetails(pokemonEntry.pokemonSpecies.name)
+    val pokemonDetails by viewModel.getPokemonDetails(pokemonEntry.entryNumber.toString())
         .observeAsState()
 
     Card(
@@ -70,7 +70,7 @@ fun PokemonCard(
                     return@clickable
                 } else {
 
-                    navController.navigate("PokemonDetailView/${pokemonEntry.pokemonSpecies.name}")
+                    navController.navigate("PokemonDetailView/${pokemonEntry.entryNumber}")
                 }
             },
         colors = CardDefaults.cardColors(

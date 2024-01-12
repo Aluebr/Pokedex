@@ -22,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class PokedexApp : Application() {
+class PokedexApp : Application() {}
 
     @AndroidEntryPoint
     class MainActivity : ComponentActivity() {
@@ -72,7 +72,7 @@ class PokedexApp : Application() {
         }
     }
 
-}
+
 
 
 
