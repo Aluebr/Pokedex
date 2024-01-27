@@ -1,17 +1,16 @@
 package com.example.pokedex.domain.usecases
-/*
+
 import com.example.pokedex.domain.models.Pokemon
-import com.example.pokedex.domain.repositories.PokemonRepository
+import com.example.pokedex.domain.repositories.IPokemonRepository
 import javax.inject.Inject
 
 class GetPokemonUseCase @Inject constructor(
-    private val repository: PokemonRepository
+    private val repository: IPokemonRepository
 ) {
 
-    suspend fun getPokemonInfo(id: String): Pokemon {
+     fun getPokemonInfo(id: String): Pokemon {
         return repository.getPokemonByID(id)
     }
 
 }
 
- */

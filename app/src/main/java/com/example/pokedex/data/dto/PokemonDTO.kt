@@ -2,7 +2,7 @@ package com.example.pokedex.data.dto
 
 import com.google.gson.annotations.SerializedName
 
-data class PokemonSerialized(
+data class PokemonDTO(
     @SerializedName("id")
     val id: String,
 

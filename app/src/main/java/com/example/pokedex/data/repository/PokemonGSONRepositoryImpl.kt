@@ -2,21 +2,26 @@ package com.example.pokedex.data.repository
 
 import android.app.Application
 import com.example.pokedex.domain.models.Pokemon
-import com.example.pokedex.data.dto.PokemonSerialized
-import com.example.pokedex.domain.repositories.PokemonRepository
+import com.example.pokedex.data.dto.PokemonDTO
+import com.example.pokedex.domain.models.Pokedex
+import com.example.pokedex.domain.repositories.IPokemonRepository
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import java.io.InputStreamReader
+import javax.inject.Inject
 
-class PokemonGSON(val application: Application) : PokemonRepository {
+class PokemonGSONRepositoryImpl @Inject constructor(val application: Application) : IPokemonRepository {
+
+    val context = application.applicationContext
     override fun getPokemonByID(name: String): Pokemon {
 
-        val context = application.applicationContext
+
         val inputStream = context.assets.open("$name.json")
         val reader = InputStreamReader(inputStream)
 
         val gson = Gson()
 
-        val gsonPokemon = gson.fromJson(reader, PokemonSerialized::class.java)
+        val gsonPokemon = gson.fromJson(reader, PokemonDTO::class.java)
         val id = gsonPokemon.id.padStart(3, '0')
         val name = gsonPokemon.name.replaceFirstChar { it.uppercaseChar() }
         var weight = "${gsonPokemon.weight / 10} KG"
@@ -40,6 +45,14 @@ class PokemonGSON(val application: Application) : PokemonRepository {
 
     }
 
+    override fun getPokemonList(): Pokedex {
+        val json = InputStreamReader(context.assets.open("pokedex.json"))
+        val gsonBuilder = GsonBuilder()
 
+        val gson = gsonBuilder.create()
+
+        val gsonPokedex = gson.fromJson(json, Pokedex::class.java)
+        return Pokedex(gsonPokedex.pokemonEntries)
+    }
 
 }

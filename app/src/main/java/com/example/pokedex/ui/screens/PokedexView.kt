@@ -33,8 +33,9 @@ import com.example.pokedex.ui.viewmodels.PokemonViewModel
 
 @Composable
 fun PokedexView(viewModel: PokemonViewModel, navController: NavHostController) {
-    val pokedex by viewModel.pokedex.observeAsState(initial = emptyList())
-val scrollState = rememberLazyGridState()
+
+    val pokedex by viewModel.pokedex.observeAsState()
+    val scrollState = rememberLazyGridState()
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Text(text = "PokeDex", fontSize = 50.sp)
         LazyVerticalGrid(
@@ -42,7 +43,7 @@ val scrollState = rememberLazyGridState()
             columns = GridCells.Fixed(3),
             contentPadding = PaddingValues(8.dp)
         ) {
-            items(pokedex, key = { it.entryNumber }) { pokemonEntry ->
+            items(pokedex?.pokemonEntries.orEmpty(), key = { it.entryNumber }) { pokemonEntry ->
                 PokemonCard(pokemonEntry, viewModel, navController)
             }
         }

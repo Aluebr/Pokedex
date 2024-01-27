@@ -16,6 +16,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.pokedex.ui.theme.PokedexTheme
 import com.example.pokedex.ui.screens.PokedexView
 import com.example.pokedex.ui.screens.PokemonDetailView
+import com.example.pokedex.ui.screens.SplashScreen
 import com.example.pokedex.ui.viewmodels.PokemonViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.HiltAndroidApp
@@ -44,8 +45,13 @@ class PokedexApp : Application() {}
 
                             NavHost(
                                 navController = navController,
-                                startDestination = "pokedexView"
+                                startDestination = "SplashScreen"
                             ) {
+                                composable("SplashScreen") {
+                                    SplashScreen(
+                                        navController
+                                    ) // Pasar navController si es necesario
+                                }
                                 composable("pokedexView") {
                                     PokedexView(
                                         pokemonViewModel,

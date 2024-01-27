@@ -1,20 +1,20 @@
 package com.example.pokedex.mappers
 
 import com.example.pokedex.domain.models.Pokemon
-import com.example.pokedex.data.dto.PokemonSerialized
+import com.example.pokedex.data.dto.PokemonDTO
 
-fun DTOPokemonToModel(pokemonSerialized: PokemonSerialized): Pokemon {
-    val id = pokemonSerialized.id.padStart(3, '0')
-    val name = pokemonSerialized.name.replaceFirstChar { it.uppercaseChar() }
-    val weight = "${pokemonSerialized.weight / 10} KG"
-    val height = "${pokemonSerialized.height / 10} M"
-    val imageURL = pokemonSerialized.sprites.other.officialArtwork.frontDefault
+fun DTOPokemonToModel(pokemonDTO: PokemonDTO): Pokemon {
+    val id = pokemonDTO.id.padStart(3, '0')
+    val name = pokemonDTO.name.replaceFirstChar { it.uppercaseChar() }
+    val weight = "${pokemonDTO.weight / 10} KG"
+    val height = "${pokemonDTO.height / 10} M"
+    val imageURL = pokemonDTO.sprites.other.officialArtwork.frontDefault
 
-    val statsMap = pokemonSerialized.stats.associate {
+    val statsMap = pokemonDTO.stats.associate {
         it.stat.name to it.base_stat
     }.toMutableMap()
 
-    val typesList = pokemonSerialized.types.map {
+    val typesList = pokemonDTO.types.map {
         it.type.name
     }.toMutableList()
 
