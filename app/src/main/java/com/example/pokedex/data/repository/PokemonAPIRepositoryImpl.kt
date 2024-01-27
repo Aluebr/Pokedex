@@ -2,9 +2,12 @@ package com.example.pokedex.data.repository
 
 import com.example.pokedex.mappers.DTOPokemonToModel
 import com.example.pokedex.domain.models.Pokemon
+import com.example.pokedex.domain.models.PokemonEntry
+import com.example.pokedex.domain.repositories.PokemonRepository
+import javax.inject.Inject
 
 
-class PokemonRetrofit : PokemonRepository {
+class PokemonAPIRepositoryImpl @Inject constructor(): PokemonRepository {
 
     override fun getPokemonByID(name: String): Pokemon {
         val call = RetrofitPokemonClient.service.getPokemonByName(name)
@@ -18,5 +21,7 @@ class PokemonRetrofit : PokemonRepository {
             throw Exception("Error al obtener datos del Pokémon desde la API")
         }
     }
+
+
 
 }

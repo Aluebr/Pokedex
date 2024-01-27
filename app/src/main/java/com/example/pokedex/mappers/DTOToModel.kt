@@ -1,7 +1,7 @@
 package com.example.pokedex.mappers
 
 import com.example.pokedex.domain.models.Pokemon
-import com.example.pokedex.domain.models.PokemonSerialized
+import com.example.pokedex.data.dto.PokemonSerialized
 
 fun DTOPokemonToModel(pokemonSerialized: PokemonSerialized): Pokemon {
     val id = pokemonSerialized.id.padStart(3, '0')

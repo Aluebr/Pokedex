@@ -2,7 +2,8 @@ package com.example.pokedex.data.repository
 
 import android.app.Application
 import com.example.pokedex.domain.models.Pokemon
-import com.example.pokedex.domain.models.PokemonSerialized
+import com.example.pokedex.data.dto.PokemonSerialized
+import com.example.pokedex.domain.repositories.PokemonRepository
 import com.google.gson.Gson
 import java.io.InputStreamReader
 

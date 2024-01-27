@@ -1,6 +1,6 @@
 package com.example.pokedex.data.repository
 
-import com.example.pokedex.data.PokemonApiService
+import com.example.pokedex.data.sources.remote.PokemonApiService
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent

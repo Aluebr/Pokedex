@@ -9,7 +9,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.pokedex.data.repository.PokedexRetrofit
 import com.example.pokedex.domain.models.Pokemon
-import com.example.pokedex.data.repository.PokemonRetrofit
+import com.example.pokedex.data.repository.PokemonAPIRepositoryImpl
 import com.example.pokedex.domain.models.ColorTypes
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -23,7 +23,7 @@ class PokemonViewModel @Inject constructor(application: Application) : AndroidVi
     private val _pokemon = MutableLiveData<Pokemon>()
     var pokemon: LiveData<Pokemon> = _pokemon
     val pokedexApi = PokedexRetrofit()
-    val pokemonApi = PokemonRetrofit()
+    val pokemonApi = PokemonAPIRepositoryImpl()
     private val pokemonDetailsMap = mutableMapOf<String, LiveData<Pokemon>>()
     init {
         getPokedex()

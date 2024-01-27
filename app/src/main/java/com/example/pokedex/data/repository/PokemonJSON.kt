@@ -3,6 +3,7 @@ package com.example.pokedex.data.repository
 
 import android.app.Application
 import com.example.pokedex.domain.models.Pokemon
+import com.example.pokedex.domain.repositories.PokemonRepository
 import org.json.JSONObject
 
 class PokemonJSON(val application: Application) : PokemonRepository {
